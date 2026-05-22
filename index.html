@@ -6,134 +6,167 @@
   <!-- Zeichensatz -->
   <meta charset="UTF-8">
 
-  <!-- Responsive Darstellung -->
+  <!-- Responsive Darstellung auf allen Geräten -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Titel -->
-  <title>UHRENSOHN</title>
+  <!-- Seitentitel (erscheint im Browser-Tab) -->
+  <title>UHRENSOHN – Schweizer Uhren Online</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Cormorant Garamond (Titel) + Inter (Fliesstext) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Schriftarten -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- CSS verbinden -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Gemeinsames CSS (für alle Seiten gleich) -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
 <body>
 
+
   <!-- =========================
-       NAVIGATION
+       NAVIGATION (Header)
+       Semantisches HTML: <nav> sagt dem Browser "das ist eine Navigation".
+       Das ist wichtig für Barrierefreiheit und Suchmaschinen.
+       Dieser Block ist auf ALLEN Seiten gleich – einfach kopieren.
   ========================= -->
 
   <nav>
+    <!--
+      <nav> = semantisches HTML5-Element für Navigationsbereich.
+      Besser als <div class="navigation">, weil der Browser weiss was es ist.
+    -->
 
-    <!-- Logo -->
+    <!-- Logo links (verlinkt zur Startseite) -->
     <div class="nav-left">
-
-      <img
-        src="Logo_Uhrensohn.jpg"
-        alt="Logo"
-        class="logo"
-      >
-
+      <a href="index.html">
+        <!--
+          alt="..." = Alternativtext für Screenreader und falls Bild nicht lädt.
+          Pflicht bei jedem <img>-Tag!
+        -->
+        <img
+          src="assets/images/Logo_Uhrensohn.jpg"
+          alt="Uhrensohn Logo"
+          class="logo"
+        >
+      </a>
     </div>
 
-    <!-- Rechte Icons -->
+    <!--
+      Navigationslinks als <ul> (unordered list) mit <li> (list items).
+      Warum <ul>? Weil Navigation semantisch eine Liste von Links ist.
+      Der Browser und Screenreader verstehen so die Struktur besser.
+      id="nav-links" → JavaScript findet dieses Element über diese ID.
+    -->
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"      class="nav-link">Home</a></li>
+      <li><a href="sortiment.html"  class="nav-link">Sortiment</a></li>
+      <li><a href="ueber-uns.html"  class="nav-link">Über uns</a></li>
+      <li><a href="kontakt.html"    class="nav-link">Kontakt</a></li>
+    </ul>
+
+    <!-- Rechte Icons + Hamburger-Button -->
     <div class="nav-right">
 
       <div class="icon">⌕</div>
-
       <div class="icon">👜</div>
 
-      <div class="icon">☰</div>
+      <!--
+        Hamburger-Button: drei leere <span>-Elemente werden via CSS
+        zu den drei Strichen (☰) gestylt.
+        aria-label = Beschriftung für Screenreader (Barrierefreiheit).
+        id="hamburger-btn" → JavaScript steuert diesen Button.
+      -->
+      <button class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
     </div>
 
   </nav>
 
+
   <!-- =========================
        HERO SECTION
+       Grosser Begrüssungsbereich mit Titel, Untertitel, Buttons und Slider.
+       <section> = semantisches HTML5-Element für einen inhaltlichen Abschnitt.
+       Besser als <div>, weil es die Bedeutung des Bereichs beschreibt.
   ========================= -->
 
   <section class="hero">
+    <!--
+      class="hero" → In style.css werden alle Elemente mit dieser Klasse gestylt.
+      Das Layout (zwei Spalten: Text links, Slider rechts) kommt aus CSS Grid.
+    -->
 
-    <!-- Linke Seite -->
+    <!-- Linke Seite: Text -->
     <div class="hero-left">
 
-      <!-- Titel -->
+      <!--
+        <h1> = Hauptüberschrift der Seite. Nur EINMAL pro Seite verwenden!
+        Die Einblend-Animation (fade von unten) kommt aus style.css: @keyframes fadeInUp
+        <br> = Zeilenumbruch direkt im Text
+      -->
       <h1>
-
         Deine Uhr.<br>
         Dein Stil.
-
       </h1>
 
       <!-- Untertitel -->
       <p>
-
         Schweizer Uhren – direkt online bestellen
-
       </p>
 
       <!-- Buttons -->
       <div class="hero-buttons">
 
         <button class="btn-primary">
-
           JETZT SHOPPEN
-
         </button>
 
         <button class="btn-secondary">
-
           SORTIMENT
-
         </button>
 
       </div>
 
     </div>
 
-    <!-- Rechte Seite -->
+    <!-- Rechte Seite: Bild-Slider -->
     <div class="hero-right">
 
-      <!-- Slider -->
       <div class="slider">
 
         <!-- Slide 1 -->
         <div class="slide active">
-
-          Bild folgt bald!
-
+          <img src="assets/images/bilder_slider/slider_bild_1.jpg" alt="Slide 1">
         </div>
 
         <!-- Slide 2 -->
         <div class="slide">
-
-          Bild folgt bald!
-
+          <img src="assets/images/bilder_slider/slider_bild_2.jpg" alt="Slide 2">
         </div>
 
         <!-- Slide 3 -->
         <div class="slide">
-
-          Bild folgt bald!
-
+          <img src="assets/images/bilder_slider/slider_bild_3.jpg" alt="Slide 3">
         </div>
 
-        <!-- Slider Buttons -->
+        <!-- Slide 4 -->
+        <div class="slide">
+          <img src="assets/images/bilder_slider/slider_bild_4.jpg" alt="Slide 4">
+        </div>
+
+        <!--
+          onclick="prevSlide()" → Wenn geklickt, wird die Funktion prevSlide()
+          aus script.js aufgerufen. Das ist die einfachste Art, JS im HTML einzubinden.
+        -->
         <div class="slider-buttons">
-
           <button onclick="prevSlide()">‹</button>
-
           <button onclick="nextSlide()">›</button>
-
         </div>
 
       </div>
@@ -142,30 +175,33 @@
 
   </section>
 
+
   <!-- =========================
-       PRODUKTE
+       SORTIMENT (Produkte)
+       Das Grid wird automatisch von script.js befüllt.
   ========================= -->
 
   <section class="products">
 
-    <!-- Titel -->
+    <!-- Sektionsüberschrift mit goldenen Linien -->
     <div class="section-title">
-
       <div class="line"></div>
-
       <h2>SORTIMENT</h2>
-
       <div class="line"></div>
-
     </div>
 
-    <!-- Produkt Grid -->
+    <!--
+      Dieses <div> ist zunächst leer.
+      JavaScript (script.js) holt es über id="product-grid" und
+      fügt automatisch die Produktkarten als HTML hinein.
+    -->
     <div class="product-grid" id="product-grid"></div>
 
   </section>
 
+
   <!-- =========================
-       ÜBER UNS
+       ÜBER UNS (Kurzinfo-Box)
   ========================= -->
 
   <section class="about-box">
@@ -173,71 +209,80 @@
     <!-- Text -->
     <div class="about-content">
 
-      <h3>
-
-        ÜBER UHRENSOHN
-
-      </h3>
+      <h3>ÜBER UHRENSOHN</h3>
 
       <p>
-
         Uhrensohn verbindet Schweizer Uhrentradition mit moderner Ästhetik.
         Entdecke unsere Leidenschaft für zeitlose Uhren und exzellenten Service.
-
       </p>
 
     </div>
 
     <!-- Button -->
-    <button class="btn-primary">
-
-      MEHR ERFAHREN
-
-    </button>
+    <a href="ueber-uns.html">
+      <button class="btn-primary">MEHR ERFAHREN</button>
+    </a>
 
   </section>
 
+
   <!-- =========================
        FOOTER
+       <footer> = semantisches HTML5-Element für den Seitenabschluss.
+       Enthält: Links, Öffnungszeiten, Social Media, Disclaimer.
+       Dieser Block ist auf ALLEN Seiten gleich – einfach kopieren.
   ========================= -->
 
   <footer>
+    <!--
+      Das Footer-Layout (4 Spalten + volle-Breite-Zeile unten) wird
+      in style.css via CSS Grid gesteuert: grid-template-columns: repeat(4, 1fr)
+    -->
 
-    <!-- Spalte 1 -->
-    <div>
-
+    <!-- Spalte 1: Über uns / Kontakt -->
+    <div class="footer-col">
       <h4>UHRENSOHN</h4>
-
-      <a href="#">Über uns</a>
-
-      <a href="#">Kontakt</a>
-
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="kontakt.html">Kontakt</a>
     </div>
 
-    <!-- Spalte 2 -->
-    <div>
-
+    <!-- Spalte 2: Shop-Links -->
+    <div class="footer-col">
       <h4>SHOP</h4>
-
-      <a href="#">Sortiment</a>
-
+      <a href="sortiment.html">Sortiment</a>
     </div>
 
-    <!-- Spalte 3 -->
-    <div>
+    <!-- Spalte 3: Öffnungszeiten -->
+    <div class="footer-col">
+      <h4>ÖFFNUNGSZEITEN</h4>
+      <p>Mo – Fr: 09:00 – 18:00</p>
+      <p>Sa: 10:00 – 16:00</p>
+      <p>So: Geschlossen</p>
+    </div>
 
-      <h4>RECHTLICHES</h4>
+    <!-- Spalte 4: Social Media + Rechtliches -->
+    <div class="footer-col">
+      <h4>FOLGE UNS</h4>
+      <a href="#" class="social-link">📷 Instagram</a>
+      <a href="#" class="social-link">📘 Facebook</a>
+      <!-- Trennlinie + rechtliche Links -->
+      <div class="footer-legal">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+      </div>
+    </div>
 
-      <a href="#">Impressum</a>
-
-      <a href="#">Datenschutz</a>
-
+    <!-- Unterer Streifen: Disclaimer + Gruppenmitglieder (volle Breite) -->
+    <div class="footer-bottom">
+      <p>Projekt von: Elias, [Vorname 2], [Vorname 3]</p>
+      <p>Das ist ein Schulprojekt und keine reale Website.</p>
     </div>
 
   </footer>
 
-  <!-- JavaScript -->
-  <script src="script.js"></script>
+
+  <!-- Gemeinsames JavaScript (für alle Seiten gleich) -->
+  <script src="assets/js/script.js"></script>
 
 </body>
 

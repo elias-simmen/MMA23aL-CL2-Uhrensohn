@@ -1,806 +1,1057 @@
 /* =========================
-   FARBEN
+   UHRENSOHN – style.css
+   Wird auf ALLEN Seiten eingebunden.
+   Enthält: Navigation, Footer, Buttons,
+   Animationen und alle gemeinsamen Styles.
 ========================= */
 
+
+/*
+  CSS-VARIABLEN (Custom Properties)
+  Variablen speichern Werte, die man an vielen Stellen braucht.
+  Vorteil: Farbe nur EINMAL ändern → ändert sich überall auf der Seite.
+
+  :root = gilt für das gesamte HTML-Dokument (höchste Ebene).
+  --name: wert; → so wird eine Variable definiert.
+  var(--name)   → so wird eine Variable verwendet (z.B. weiter unten im CSS).
+
+  Tipp: Alle Farben der Website sind hier zentral gespeichert.
+        Will man die Goldfarbe ändern, reicht es --gold anzupassen.
+*/
+
 :root {
-
-  --gold: #c8a448;
-
-  --bg: #f7f4ef;
-
-  --white: #ffffff;
-
-  --text: #2a2a2a;
-
-  --muted: #6f6f6f;
-
-  --border: #e7dfd2;
-
-  --placeholder: #ece6de;
+  --gold:        #c8a448;   /* Hauptfarbe: Gold */
+  --bg:          #f7f4ef;   /* Seitenhintergrund */
+  --white:       #ffffff;
+  --text:        #2a2a2a;   /* Dunkler Fliesstext */
+  --muted:       #6f6f6f;   /* Abgeschwächter Text */
+  --border:      #e7dfd2;   /* Rahmenfarbe */
+  --placeholder: #ece6de;   /* Bild-Platzhalter */
 }
+
 
 /* =========================
    RESET
+   Entfernt die Standard-Abstände des Browsers,
+   damit alle Browser gleich aussehen.
 ========================= */
 
 * {
-
   margin: 0;
-
   padding: 0;
-
-  box-sizing: border-box;
+  box-sizing: border-box; /* Rahmen zählt zur Breite */
 }
 
-/* Gesamte Seite */
-
+/* Basisstil der Seite */
 body {
-
   background: var(--bg);
-
   color: var(--text);
-
   font-family: 'Inter', sans-serif;
 }
+
+
+/*
+  CSS-ANIMATIONEN mit @keyframes
+
+  @keyframes definiert den Ablauf einer Animation.
+  from = Startzustand, to = Endzustand.
+  Der Browser interpoliert (berechnet) alle Zwischenschritte automatisch.
+
+  Die Animation wird dann bei einem Element mit "animation: fadeInUp 0.7s ..."
+  eingebunden – zu sehen beim Hero-Titel, Untertitel und den Buttons.
+*/
+
+/* Fade von unten nach oben (Einblend-Animation) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;              /* unsichtbar */
+    transform: translateY(25px); /* startet 25px weiter unten */
+  }
+  to {
+    opacity: 1;              /* vollständig sichtbar */
+    transform: translateY(0); /* an der normalen Position */
+  }
+}
+
 
 /* =========================
    NAVIGATION
 ========================= */
 
 nav {
-
   height: 90px;
-
   background: var(--white);
-
   padding: 0 4rem;
 
+  /*
+    FLEXBOX: Ordnet die Kinder (Logo, Links, Icons) in einer Reihe an.
+    display: flex        → Flexbox aktivieren
+    align-items: center  → alles vertikal zentrieren (Mitte der 90px-Höhe)
+    justify-content: space-between → Logo ganz links, Icons ganz rechts,
+                                     Links-Menü dazwischen
+  */
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
 
+  /*
+    position: relative → Pflicht! Damit das mobile Dropdown-Menü
+    (position: absolute) sich relativ zur Nav positioniert,
+    nicht relativ zur ganzen Seite.
+  */
+  position: relative;
+
   border-bottom: 1px solid var(--border);
+
+  /* Rahmeneffekt: Schatten für mehr Tiefe */
+  /* rgba(0,0,0,0.04) = schwarz mit 4% Transparenz (sehr dezenter Schatten) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* Logo */
-
+/* Logo-Bild */
 .logo {
-
   height: 55px;
-
   width: auto;
-
   object-fit: contain;
-
   display: block;
 }
 
-/* Rechte Seite */
+/* Hover auf Logo: leicht transparent */
+.nav-left a:hover .logo {
+  opacity: 0.8;
+}
+
+
+/* === NAVIGATIONSLINKS (Desktop) === */
+
+/* Die <ul>-Liste als horizontale Reihe */
+.nav-links {
+  display: flex;
+  list-style: none; /* keine Aufzählungspunkte */
+  gap: 2.5rem;
+}
+
+/* Einzelner Link <a> */
+.nav-link {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  /*
+    transition: color 0.2s → Der Farbwechsel beim Hover dauert 0.2 Sekunden.
+    Ohne transition würde die Farbe sofort wechseln – mit transition ist es weich.
+  */
+  transition: color 0.2s;
+
+  /* position: relative → nötig, damit das ::after-Element sich darunter positioniert */
+  position: relative;
+}
+
+/*
+  ::after = ein Pseudo-Element, das CSS automatisch NACH dem Inhalt einfügt.
+  Es existiert nicht im HTML, wird aber vom Browser gerendert.
+  Hier: ein unsichtbarer Strich, der beim Hover auf Vollbreite animiert wird.
+*/
+.nav-link::after {
+  content: '';       /* Pflicht: ohne content wird ::after nicht angezeigt */
+  position: absolute;
+  bottom: -4px;      /* 4px unterhalb des Links */
+  left: 0;
+  width: 0;              /* startet bei 0 – also unsichtbar */
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease; /* fährt beim Hover langsam auf 100% aus */
+}
+
+/* Hover oder aktiver Link: Unterstrich erscheint */
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Hover oder aktiver Link: goldfarben */
+.nav-link:hover,
+.nav-link.active {
+  color: var(--gold);
+}
+
+
+/* === RECHTE ICONS === */
 
 .nav-right {
-
   display: flex;
-
   gap: 1rem;
+  align-items: center;
 }
 
-/* Einzelnes Icon */
-
+/* Einzelnes Icon-Quadrat */
 .icon {
-
   width: 42px;
-
   height: 42px;
-
   border: 1px solid var(--gold);
-
   color: var(--gold);
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   border-radius: 6px;
-
   cursor: pointer;
 
-  transition: 0.2s;
+  /* Hover-Übergang */
+  transition: background 0.2s, color 0.2s;
 }
 
-/* Hover Effekt */
-
+/* Hover-Effekt: goldener Hintergrund */
 .icon:hover {
-
   background: var(--gold);
-
   color: white;
 }
 
+
+/* === HAMBURGER BUTTON (Mobile) === */
+/* Auf Desktop versteckt, auf Mobile sichtbar */
+
+.hamburger {
+  display: none;           /* erst ab 700px sichtbar */
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* Die drei Striche des Hamburgers */
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--gold);
+
+  /* Übergang für die X-Animation */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Wenn Menü offen: oberer Strich wird zu /  */
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+/* Wenn Menü offen: mittlerer Strich verschwindet */
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+/* Wenn Menü offen: unterer Strich wird zu \ */
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
 /* =========================
-   HERO
+   HERO SECTION (Startseite)
 ========================= */
 
 .hero {
-
-  background: #f4efea;
+  /* Hintergrundeffekt: Farbverlauf (von links-oben nach rechts-unten) */
+  /* linear-gradient(Richtung, Startfarbe, Endfarbe) */
+  background: linear-gradient(135deg, #f4efea 0%, #eae3db 100%);
 
   padding: 5rem 4rem;
 
+  /*
+    CSS GRID: Teilt den Hero in zwei gleich breite Spalten (Text | Slider).
+    display: grid                  → Grid aktivieren
+    grid-template-columns: 1fr 1fr → Zwei Spalten, jede nimmt 1 "fraction" (Bruchteil)
+                                     des verfügbaren Platzes. 1fr 1fr = je 50%.
+    gap: 4rem                      → Abstand zwischen den beiden Spalten
+    align-items: center            → Spalten vertikal in der Mitte ausrichten
+  */
   display: grid;
-
   grid-template-columns: 1fr 1fr;
-
   gap: 4rem;
-
   align-items: center;
 }
 
-/* Titel */
-
+/* Haupttitel – startet die Einblend-Animation sofort */
 .hero-left h1 {
-
   font-family: 'Cormorant Garamond', serif;
-
   font-size: 6rem;
-
   line-height: 0.9;
-
   font-weight: 600;
-
   color: var(--gold);
-
   margin-bottom: 1.5rem;
+
+  /* Animation: 0.7s Dauer, beginnt sofort */
+  animation: fadeInUp 0.7s ease-out both;
 }
 
-/* Untertitel */
-
+/* Untertitel – beginnt 0.2s später */
 .hero-left p {
-
   color: var(--muted);
-
   font-size: 1.2rem;
-
   margin-bottom: 2rem;
+
+  animation: fadeInUp 0.7s ease-out 0.2s both;
 }
 
-/* Button Bereich */
-
+/* Buttons – beginnen 0.4s später */
 .hero-buttons {
-
   display: flex;
-
   gap: 1rem;
+
+  animation: fadeInUp 0.7s ease-out 0.4s both;
 }
+
 
 /* =========================
    BUTTONS
 ========================= */
 
+/* Goldener Haupt-Button */
 .btn-primary {
-
   background: var(--gold);
-
   color: white;
-
   border: none;
-
   padding: 1rem 2rem;
-
   border-radius: 6px;
-
   font-size: 0.85rem;
-
   letter-spacing: 0.08em;
-
   cursor: pointer;
-
-  transition: 0.2s;
+  transition: background 0.2s;
 }
 
-/* Hover */
-
+/* Hover-Effekt: dunkleres Gold */
 .btn-primary:hover {
-
   background: #b48e33;
 }
 
-/* Transparenter Button */
-
+/* Transparenter Outline-Button */
 .btn-secondary {
-
   background: transparent;
-
   color: var(--gold);
-
   border: 1px solid var(--gold);
-
   padding: 1rem 2rem;
-
   border-radius: 6px;
-
   font-size: 0.85rem;
-
   letter-spacing: 0.08em;
-
   cursor: pointer;
-
-  transition: 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
-/* Hover */
-
+/* Hover-Effekt: wird zum Primär-Button */
 .btn-secondary:hover {
-
   background: var(--gold);
-
   color: white;
 }
+
 
 /* =========================
    SLIDER
 ========================= */
 
 .slider {
-
   position: relative;
-
   width: 100%;
-
   height: 360px;
-
   overflow: hidden;
 
+  /* Rahmeneffekt: runde Ecken + Schatten */
   border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 
   background: var(--placeholder);
 }
 
 /* Einzelner Slide */
-
 .slide {
-
   position: absolute;
-
-  inset: 0;
-
+  inset: 0;         /* = top:0, right:0, bottom:0, left:0 */
   display: none;
-
   align-items: center;
-
   justify-content: center;
-
   background: var(--placeholder);
-
   color: #b0a89d;
-
   font-size: 1.1rem;
 }
 
-/* Aktiver Slide */
-
+/* Aktiver Slide ist sichtbar */
 .slide.active {
-
   display: flex;
 }
 
-/* Slider Buttons */
+/* Wenn ein Bild im Slide ist */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+/* Pfeil-Buttons unten rechts */
 .slider-buttons {
-
   position: absolute;
-
   bottom: 20px;
-
   right: 20px;
-
   display: flex;
-
   gap: 0.5rem;
 }
 
-/* Slider Button */
-
 .slider-buttons button {
-
   width: 42px;
-
   height: 42px;
-
   border: none;
-
   border-radius: 50%;
-
-  background: rgba(255,255,255,0.9);
-
+  background: rgba(255, 255, 255, 0.9);
   color: var(--gold);
-
   font-size: 1.3rem;
-
   cursor: pointer;
-
-  transition: 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
-/* Hover */
-
+/* Hover-Effekt */
 .slider-buttons button:hover {
-
   background: var(--gold);
-
   color: white;
 }
 
+
 /* =========================
-   PRODUKTE
+   PRODUKTE-SECTION
 ========================= */
 
 .products {
-
   padding: 4rem;
 }
 
-/* Titelbereich */
-
+/* Titelzeile mit goldenen Linien links/rechts */
 .section-title {
-
   display: flex;
-
   align-items: center;
-
   gap: 2rem;
-
   margin-bottom: 3rem;
 }
 
-/* Titel */
-
 .section-title h2 {
-
   font-family: 'Cormorant Garamond', serif;
-
   color: var(--gold);
-
   font-size: 2.5rem;
+  white-space: nowrap; /* kein Zeilenumbruch */
 }
 
-/* Linien */
-
+/* Die goldene Linie */
 .line {
-
-  flex: 1;
-
+  flex: 1;      /* nimmt den restlichen Platz */
   height: 1px;
-
   background: var(--gold);
 }
 
-/* Produkt Grid */
-
+/*
+  Produkt-Raster: 4 gleich breite Spalten.
+  repeat(4, 1fr) ist eine Kurzform für: 1fr 1fr 1fr 1fr
+  1fr = 1 Bruchteil (fraction) des verfügbaren Platzes.
+  Bei 4 Spalten bekommt jede Spalte also 25% der Breite.
+*/
 .product-grid {
-
   display: grid;
-
   grid-template-columns: repeat(4, 1fr);
-
   gap: 2rem;
 }
 
-/* Produktkarte */
-
+/* Einzelne Produktkarte */
 .product-card {
-
   background: white;
 
+  /* Rahmeneffekt: Rahmen + runde Ecken */
   border: 1px solid var(--border);
-
   border-radius: 18px;
-
   overflow: hidden;
 
-  transition: 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Hover */
-
+/*
+  Hover-Effekt: Karte schwebt nach oben.
+  transform: translateY(-6px) → verschiebt die Karte 6px nach oben
+  box-shadow: 0 12px 30px ... → stärkerer Schatten (wirkt realistischer beim "Schweben")
+  Der weiche Übergang kommt vom transition-Wert oben in .product-card.
+*/
 .product-card:hover {
-
-  transform: translateY(-4px);
-
-  box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Produktbild */
-
+/* Bild-Bereich der Karte */
 .product-image {
-
   height: 220px;
-
   background: var(--placeholder);
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   color: #b3aa9e;
+  overflow: hidden;
 }
 
-/* Inhalt */
+/* Wenn ein echtes Bild eingefügt wird */
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+/* Text-Bereich der Karte */
 .product-content {
-
   padding: 1.5rem;
-
   text-align: center;
 }
 
-/* Produkttitel */
-
 .product-content h3 {
-
   margin-bottom: 0.5rem;
-
   font-size: 1rem;
-
   font-weight: 500;
 }
 
-/* Preis */
-
+/* Preisanzeige */
 .price {
-
   color: var(--muted);
-
   margin-bottom: 1.5rem;
 }
 
+
 /* =========================
-   ÜBER UNS
+   ÜBER UNS – KURZINFO (Startseite)
 ========================= */
 
 .about-box {
-
   background: white;
-
   margin: 0 4rem 4rem;
 
+  /* Rahmeneffekt: goldener Rahmen + runde Ecken */
   border: 1px solid var(--gold);
-
   border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(200, 164, 72, 0.1);
 
   padding: 2rem;
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   gap: 2rem;
 }
 
-/* Titel */
-
 .about-content h3 {
-
   font-family: 'Cormorant Garamond', serif;
-
   color: var(--gold);
-
   font-size: 2rem;
-
   margin-bottom: 0.5rem;
 }
 
-/* Text */
-
 .about-content p {
-
   color: var(--muted);
-
   max-width: 700px;
-
   line-height: 1.7;
 }
+
+
+/* =========================
+   KONTAKT-SEITE (Formular)
+========================= */
+
+.kontakt-section {
+  padding: 5rem 4rem;
+}
+
+/* Formular in der Mitte, max. 700px breit */
+.kontakt-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.kontakt-container h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold);
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.kontakt-container > p {
+  color: var(--muted);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+/* Das Formular selbst: eine Spalte */
+#kontakt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Eine Gruppe: Label + Feld + Fehlermeldung */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Label (Beschriftung) */
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+/* Input-Felder und Textarea */
+.form-group input,
+.form-group textarea {
+  padding: 0.9rem 1rem;
+
+  /* Rahmeneffekt: weicher Rahmen */
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  background: white;
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+
+/* Hover-Effekt: goldener Rahmen beim Fokus */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+/* Textarea: vertikal vergrösserbar */
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Checkbox-Gruppe: horizontal angeordnet */
+.form-group--checkbox {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.form-group--checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+  padding: 0;
+  border: 1px solid var(--border);
+}
+
+.form-group--checkbox label {
+  flex: 1;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* Link im Datenschutz-Label */
+.form-group--checkbox label a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+/* Fehlermeldung: rot, erscheint wenn Text drin ist */
+.error-msg {
+  color: #c0392b;
+  font-size: 0.8rem;
+  min-height: 1rem; /* Platz reserviert, damit Layout stabil bleibt */
+}
+
+/* Checkbox-Fehlermeldung braucht volle Breite */
+.form-group--checkbox .error-msg {
+  width: 100%;
+}
+
+/* Erfolgsmeldung: grün */
+.success-msg {
+  color: #27ae60;
+  font-size: 0.95rem;
+  padding: 1rem;
+  background: #f0fff4;
+  border-radius: 8px;
+  border: 1px solid #27ae60;
+}
+
+/* Wenn keine Meldung: unsichtbar */
+.success-msg:empty {
+  display: none;
+}
+
+
+/* =========================
+   ÜBER UNS – SEITE
+========================= */
+
+.ueber-uns-section {
+  padding: 5rem 4rem;
+}
+
+.ueber-uns-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ueber-uns-container h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold);
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+/* Platzhalter für das Bild (kann durch <img> ersetzt werden) */
+.ueber-uns-image {
+  width: 100%;
+  height: 350px;
+  background: var(--placeholder);
+
+  /* Rahmeneffekt: runde Ecken */
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b3aa9e;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  overflow: hidden;
+}
+
+/* Wenn ein echtes Bild eingefügt wird */
+.ueber-uns-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* Fliesstext */
+.ueber-uns-text p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
 
 /* =========================
    FOOTER
 ========================= */
 
 footer {
-
-  background: #efe9e2;
+  /* Hintergrundeffekt: leichter Gradient */
+  background: linear-gradient(180deg, #efe9e2 0%, #e8e1d9 100%);
 
   padding: 4rem;
-
   display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* 4 Spalten */
+  gap: 2rem;
 }
 
-/* Footer Titel */
-
-footer h4 {
-
+/* Footer-Spalten-Überschriften */
+.footer-col h4 {
   color: var(--gold);
-
   font-family: 'Cormorant Garamond', serif;
-
-  font-size: 1.5rem;
-
+  font-size: 1.4rem;
   margin-bottom: 1rem;
 }
 
-/* Footer Links */
-
-footer a {
-
+/* Links im Footer */
+.footer-col a {
   display: block;
-
   color: var(--muted);
-
   margin-bottom: 0.5rem;
-
   text-decoration: none;
+  transition: color 0.2s;
 }
 
-/* Hover */
-
-footer a:hover {
-
+/* Hover-Effekt */
+.footer-col a:hover {
   color: var(--gold);
 }
 
+/* Text-Absätze (z.B. Öffnungszeiten) */
+.footer-col p {
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Trennlinie vor Rechtlichem */
+.footer-legal {
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Unterer Bereich: Disclaimer + Gruppenmitglieder */
+.footer-bottom {
+  /*
+    grid-column: 1 / -1 → Das Element nimmt alle Spalten ein.
+    1 = startet bei Spalte 1
+   -1 = endet bei der letzten Spalte (egal wie viele es gibt)
+    Ergebnis: ein "volle Breite"-Streifen am Footer-Boden.
+  */
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+
 /* =========================
-   TABLET
+   RESPONSIVE DESIGN (Media Queries)
+
+   @media prüft die Bildschirmbreite und wendet CSS nur dann an,
+   wenn die Bedingung erfüllt ist.
+
+   Reihenfolge: zuerst Desktop (Standard), dann Tablet, dann Mobile.
+   Das nennt man "Desktop-first" Ansatz.
 ========================= */
 
-@media(max-width: 1000px) {
+/* TABLET: bis 1000px Breite */
+@media (max-width: 1000px) {
 
-  /* Hero */
-
+  /* Hero: eine Spalte statt zwei */
   .hero {
-
     grid-template-columns: 1fr;
   }
 
-  /* Produkte */
-
+  /* Produkte: 2 Spalten statt 4 */
   .product-grid {
-
     grid-template-columns: 1fr 1fr;
   }
+
+  /* Footer: 2 Spalten statt 4 */
+  footer {
+    grid-template-columns: 1fr 1fr;
+  }
+
 }
 
-/* =========================
-   MOBILE
-========================= */
 
-@media(max-width: 700px) {
+/* MOBILE: bis 700px Breite (typisch: Smartphones) */
+@media (max-width: 700px) {
 
-  /* Navigation */
-
+  /* Navigation kleiner */
   nav {
-
     height: 75px;
-
     padding: 0 1.2rem;
   }
 
-  /* Logo */
-
+  /* Logo kleiner */
   .logo {
-
     height: 40px;
   }
 
-  /* Icons */
-
+  /* Icons kleiner */
   .icon {
-
     width: 34px;
-
     height: 34px;
-
     font-size: 0.9rem;
   }
 
-  /* HERO */
+  /* Hamburger-Button einblenden */
+  .hamburger {
+    display: flex;
+  }
 
+  /* Nav-Links: als Dropdown versteckt */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 75px;   /* direkt unter der Navigationsleiste */
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    /*
+      z-index steuert die "Stapelreihenfolge" von Elementen.
+      Höherer Wert = weiter vorne (oben im Stapel).
+      100 reicht aus, um über allen normalen Seiteninhalten zu liegen.
+    */
+    z-index: 100;
+  }
+
+  /* Trennlinie zwischen den Links */
+  .nav-links li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Link-Block mit Padding */
+  .nav-links .nav-link {
+    display: block;
+    padding: 1rem 1.5rem;
+  }
+
+  /* Wenn Hamburger geklickt: Klasse "open" → Menü sichtbar */
+  .nav-links.open {
+    display: flex;
+  }
+
+  /* Hero */
   .hero {
-
     grid-template-columns: 1fr;
-
     gap: 2rem;
-
     padding: 2rem 1.2rem;
   }
 
-  /* Titel */
-
   .hero-left h1 {
-
     font-size: 3.4rem;
-
     line-height: 0.95;
-
     margin-bottom: 1rem;
   }
 
-  /* Untertitel */
-
   .hero-left p {
-
     font-size: 1rem;
-
     margin-bottom: 1.5rem;
   }
 
-  /* Buttons */
-
   .hero-buttons {
-
     flex-direction: column;
-
     width: 100%;
   }
-
-  /* Buttons */
 
   .btn-primary,
   .btn-secondary {
-
     width: 100%;
-
     text-align: center;
-
     padding: 0.9rem 1rem;
   }
 
-  /* Slider */
-
   .slider {
-
     height: 240px;
   }
 
   /* Produkte */
-
   .products {
-
     padding: 2rem 1.2rem;
   }
 
-  /* Titel */
-
   .section-title {
-
     gap: 1rem;
-
     margin-bottom: 2rem;
   }
 
   .section-title h2 {
-
     font-size: 1.8rem;
   }
 
-  /* Produkt Grid */
-
   .product-grid {
-
     grid-template-columns: 1fr 1fr;
-
     gap: 1rem;
   }
 
-  /* Produktbild */
-
   .product-image {
-
     height: 120px;
-
     font-size: 0.8rem;
   }
 
-  /* Produkt Inhalt */
-
   .product-content {
-
     padding: 1rem;
   }
 
-  /* Titel */
-
   .product-content h3 {
-
     font-size: 0.85rem;
   }
 
-  /* Preis */
-
   .price {
-
     font-size: 0.85rem;
-
     margin-bottom: 1rem;
   }
 
-  /* About Box */
-
+  /* About-Box */
   .about-box {
-
     margin: 0 1.2rem 2rem;
-
     padding: 1.5rem;
-
     flex-direction: column;
-
     align-items: flex-start;
   }
 
-  /* About Titel */
-
   .about-content h3 {
-
     font-size: 1.7rem;
   }
 
-  /* About Text */
-
   .about-content p {
-
     font-size: 0.95rem;
   }
 
+  /* Kontakt-Seite */
+  .kontakt-section {
+    padding: 3rem 1.2rem;
+  }
+
+  /* Über-uns-Seite */
+  .ueber-uns-section {
+    padding: 3rem 1.2rem;
+  }
+
+  .ueber-uns-image {
+    height: 200px;
+  }
+
   /* Footer */
-
   footer {
-
     padding: 2rem 1.2rem;
-
-    grid-template-columns: 1fr;
-
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
 
-  /* Footer Titel */
-
-  footer h4 {
-
+  .footer-col h4 {
     font-size: 1.2rem;
   }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
 }
 
+
 /* =========================
-   EXTRA KLEINE GERÄTE
+   SEHR KLEINES MOBILE (bis 480px)
 ========================= */
 
-@media(max-width: 480px) {
-
-  /* Hero Titel */
+@media (max-width: 480px) {
 
   .hero-left h1 {
-
     font-size: 2.8rem;
   }
 
-  /* Produkte */
-
   .product-grid {
-
     grid-template-columns: 1fr;
   }
 
-  /* Slider */
-
   .slider {
-
     height: 200px;
   }
+
+  footer {
+    grid-template-columns: 1fr;
+  }
+
 }

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UHRENSOHN – Kontakt</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Gemeinsames CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+
+  <!-- =========================
+       NAVIGATION
+       Gleich auf allen Seiten.
+  ========================= -->
+
+  <nav>
+
+    <div class="nav-left">
+      <a href="index.html">
+        <img
+          src="assets/images/Logo_Uhrensohn.jpg"
+          alt="Uhrensohn Logo"
+          class="logo"
+        >
+      </a>
+    </div>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"      class="nav-link">Home</a></li>
+      <li><a href="sortiment.html"  class="nav-link">Sortiment</a></li>
+      <li><a href="ueber-uns.html"  class="nav-link">Über uns</a></li>
+      <li><a href="kontakt.html"    class="nav-link">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="icon">⌕</div>
+      <div class="icon">👜</div>
+      <button class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       KONTAKT-FORMULAR
+
+       VALIDIERUNGSKONZEPT (Zusammenfassung):
+       Feld 1 – Name:        min. 2 Zeichen, Pflichtfeld
+       Feld 2 – E-Mail:      gültiges Format (x@x.x), Pflichtfeld
+       Feld 3 – Betreff:     darf nicht leer sein, Pflichtfeld
+       Feld 4 – Nachricht:   min. 10 Zeichen, Pflichtfeld
+       Feld 5 – Datenschutz: muss angehakt sein, Pflichtfeld
+
+       Die genaue Validierungslogik ist in script.js dokumentiert.
+  ========================= -->
+
+  <section class="kontakt-section">
+
+    <div class="kontakt-container">
+
+      <h2>KONTAKT</h2>
+      <p>
+        Schreibe uns eine Nachricht – wir melden uns so schnell wie möglich bei dir.
+      </p>
+
+      <!--
+        novalidate: Deaktiviert die eingebaute HTML5-Validierung des Browsers.
+        Ohne novalidate würde der Browser z.B. bei type="email" selbst prüfen
+        und eine eigene Fehlermeldung anzeigen.
+        Mit novalidate übernehmen WIR die Validierung mit JavaScript (script.js),
+        damit wir eigene, deutschsprachige Fehlermeldungen anzeigen können.
+        Aufgabe sagt ausdrücklich: HTML5-Validierung ist nicht erlaubt!
+      -->
+      <form id="kontakt-form" novalidate>
+
+
+        <!-- Feld 1: Name -->
+        <div class="form-group">
+
+          <label for="name">Name *</label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Dein Vor- und Nachname"
+          >
+
+          <!-- Fehlermeldung wird von JavaScript befüllt -->
+          <span class="error-msg" id="name-error"></span>
+
+        </div>
+
+
+        <!-- Feld 2: E-Mail -->
+        <div class="form-group">
+
+          <label for="email">E-Mail *</label>
+
+          <!--
+            type="text" statt type="email", damit der Browser
+            NICHT selbst validiert – wir machen es mit JS.
+          -->
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="deine@email.ch"
+          >
+
+          <span class="error-msg" id="email-error"></span>
+
+        </div>
+
+
+        <!-- Feld 3: Betreff -->
+        <div class="form-group">
+
+          <label for="betreff">Betreff *</label>
+
+          <input
+            type="text"
+            id="betreff"
+            name="betreff"
+            placeholder="Worum geht es?"
+          >
+
+          <span class="error-msg" id="betreff-error"></span>
+
+        </div>
+
+
+        <!-- Feld 4: Nachricht -->
+        <div class="form-group">
+
+          <label for="nachricht">Nachricht *</label>
+
+          <textarea
+            id="nachricht"
+            name="nachricht"
+            rows="5"
+            placeholder="Deine Nachricht (mindestens 10 Zeichen)..."
+          ></textarea>
+
+          <span class="error-msg" id="nachricht-error"></span>
+
+        </div>
+
+
+        <!-- Feld 5: Datenschutz-Checkbox -->
+        <div class="form-group form-group--checkbox">
+
+          <input
+            type="checkbox"
+            id="datenschutz"
+            name="datenschutz"
+          >
+
+          <label for="datenschutz">
+            Ich habe die <a href="#">Datenschutzerklärung</a> gelesen und stimme zu. *
+          </label>
+
+          <span class="error-msg" id="datenschutz-error"></span>
+
+        </div>
+
+
+        <!-- Absenden-Button -->
+        <button type="submit" class="btn-primary">
+          NACHRICHT SENDEN
+        </button>
+
+
+        <!-- Erfolgsmeldung (bleibt leer bis das Formular gültig abgesendet wird) -->
+        <p class="success-msg" id="success-msg"></p>
+
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+       Gleich auf allen Seiten.
+  ========================= -->
+
+  <footer>
+
+    <div class="footer-col">
+      <h4>UHRENSOHN</h4>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="kontakt.html">Kontakt</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>SHOP</h4>
+      <a href="sortiment.html">Sortiment</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>ÖFFNUNGSZEITEN</h4>
+      <p>Mo – Fr: 09:00 – 18:00</p>
+      <p>Sa: 10:00 – 16:00</p>
+      <p>So: Geschlossen</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>FOLGE UNS</h4>
+      <a href="#" class="social-link">📷 Instagram</a>
+      <a href="#" class="social-link">📘 Facebook</a>
+      <div class="footer-legal">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>Projekt von: Elias, [Vorname 2], [Vorname 3]</p>
+      <p>Das ist ein Schulprojekt und keine reale Website.</p>
+    </div>
+
+  </footer>
+
+
+  <!-- Gemeinsames JavaScript -->
+  <script src="assets/js/script.js"></script>
+
+</body>
+
+</html>
