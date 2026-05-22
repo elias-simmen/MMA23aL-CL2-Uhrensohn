@@ -1,15 +1,244 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+  <!-- Zeichensatz -->
+  <meta charset="UTF-8">
+
+  <!-- Responsive Darstellung -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Titel -->
+  <title>UHRENSOHN</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Schriftarten -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS verbinden -->
+  <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
-    <h1>My awesome page</h1>
-    <script src="/assets/js/script.js"></script>
+
+  <!-- =========================
+       NAVIGATION
+  ========================= -->
+
+  <nav>
+
+    <!-- Logo -->
+    <div class="nav-left">
+
+      <img
+        src="Logo_Uhrensohn.jpg"
+        alt="Logo"
+        class="logo"
+      >
+
+    </div>
+
+    <!-- Rechte Icons -->
+    <div class="nav-right">
+
+      <div class="icon">⌕</div>
+
+      <div class="icon">👜</div>
+
+      <div class="icon">☰</div>
+
+    </div>
+
+  </nav>
+
+  <!-- =========================
+       HERO SECTION
+  ========================= -->
+
+  <section class="hero">
+
+    <!-- Linke Seite -->
+    <div class="hero-left">
+
+      <!-- Titel -->
+      <h1>
+
+        Deine Uhr.<br>
+        Dein Stil.
+
+      </h1>
+
+      <!-- Untertitel -->
+      <p>
+
+        Schweizer Uhren – direkt online bestellen
+
+      </p>
+
+      <!-- Buttons -->
+      <div class="hero-buttons">
+
+        <button class="btn-primary">
+
+          JETZT SHOPPEN
+
+        </button>
+
+        <button class="btn-secondary">
+
+          SORTIMENT
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Rechte Seite -->
+    <div class="hero-right">
+
+      <!-- Slider -->
+      <div class="slider">
+
+        <!-- Slide 1 -->
+        <div class="slide active">
+
+          Bild folgt bald!
+
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+
+          Bild folgt bald!
+
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+
+          Bild folgt bald!
+
+        </div>
+
+        <!-- Slider Buttons -->
+        <div class="slider-buttons">
+
+          <button onclick="prevSlide()">‹</button>
+
+          <button onclick="nextSlide()">›</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       PRODUKTE
+  ========================= -->
+
+  <section class="products">
+
+    <!-- Titel -->
+    <div class="section-title">
+
+      <div class="line"></div>
+
+      <h2>SORTIMENT</h2>
+
+      <div class="line"></div>
+
+    </div>
+
+    <!-- Produkt Grid -->
+    <div class="product-grid" id="product-grid"></div>
+
+  </section>
+
+  <!-- =========================
+       ÜBER UNS
+  ========================= -->
+
+  <section class="about-box">
+
+    <!-- Text -->
+    <div class="about-content">
+
+      <h3>
+
+        ÜBER UHRENSOHN
+
+      </h3>
+
+      <p>
+
+        Uhrensohn verbindet Schweizer Uhrentradition mit moderner Ästhetik.
+        Entdecke unsere Leidenschaft für zeitlose Uhren und exzellenten Service.
+
+      </p>
+
+    </div>
+
+    <!-- Button -->
+    <button class="btn-primary">
+
+      MEHR ERFAHREN
+
+    </button>
+
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    <!-- Spalte 1 -->
+    <div>
+
+      <h4>UHRENSOHN</h4>
+
+      <a href="#">Über uns</a>
+
+      <a href="#">Kontakt</a>
+
+    </div>
+
+    <!-- Spalte 2 -->
+    <div>
+
+      <h4>SHOP</h4>
+
+      <a href="#">Sortiment</a>
+
+    </div>
+
+    <!-- Spalte 3 -->
+    <div>
+
+      <h4>RECHTLICHES</h4>
+
+      <a href="#">Impressum</a>
+
+      <a href="#">Datenschutz</a>
+
+    </div>
+
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
 </body>
+
 </html>
