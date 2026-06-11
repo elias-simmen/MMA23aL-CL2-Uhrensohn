@@ -137,7 +137,44 @@
         </p>
 
         <div class="game-placeholder">
-          <!-- hier kommt spaeter das dino-game hinein -->
+
+          <!-- spielfeld des uhren-runners. die figur springt ueber uhren. -->
+          <!-- das spiel selbst (logik) steht in assets/js/script.js -->
+          <div class="uhr-game" id="uhr-game">
+
+            <!-- punkte (live) und gespeicherter highscore, oben rechts -->
+            <div class="uhr-game-scores">
+              <span id="uhr-game-score">0</span>
+              <span class="uhr-game-best">Best: <span id="uhr-game-highscore">0</span></span>
+            </div>
+
+            <!-- die spielfigur (springt ueber die hindernisse) -->
+            <img
+              src="assets/images/T-Rex_Game/player_figur.png"
+              alt="Spielfigur"
+              class="uhr-game-player"
+              id="uhr-game-player"
+            >
+
+            <!-- die uhren-hindernisse werden per javascript hier hineingelegt -->
+
+            <!-- start-overlay: das spiel startet erst auf knopfdruck/klick -->
+            <div class="uhr-game-overlay" id="uhr-game-start">
+              <p>UHREN-RUNNER</p>
+              <button type="button" class="btn-primary" id="uhr-game-start-btn">SPIEL STARTEN</button>
+              <span class="uhr-game-hint">Leertaste oder Klick / Tap zum Springen</span>
+            </div>
+
+            <!-- game-over-overlay: erscheint beim zusammenstoss -->
+            <div class="uhr-game-overlay uhr-game-hidden" id="uhr-game-over">
+              <p>GAME OVER</p>
+              <span class="uhr-game-finalscore">Punkte: <span id="uhr-game-finalscore">0</span></span>
+              <button type="button" class="btn-primary" id="uhr-game-restart-btn">NOCHMAL</button>
+              <span class="uhr-game-hint">Leertaste oder Klick / Tap für Neustart</span>
+            </div>
+
+          </div>
+
         </div>
 
       </div>
