@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
 
   <!-- logo im browser-tab (anstelle vom globus oben links vom tab) -->
-  <link rel="icon" type="image/jpeg" href="assets/images/Logo_Uhrensohn1.jpg">
+  <link rel="icon" type="image/jpeg" href="assets/images/icon_tab.jpg">
 
   <!-- responsive design, je nach geraet -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,16 +55,16 @@
     <!-- suche, warenkorb und mobile-menue -->
     <div class="nav-right">
 
-      <button class="icon" aria-label="Suche öffnen">
+      <button type="button" class="icon" aria-label="Suche öffnen">
         <img src="assets/images/header_search.svg" alt="" aria-hidden="true">
       </button>
 
-      <button class="icon" aria-label="Warenkorb öffnen">
+      <button type="button" class="icon" aria-label="Warenkorb öffnen">
         <img src="assets/images/header_shopping.svg" alt="" aria-hidden="true">
       </button>
 
       <!-- button fuer das menue auf kleinen bildschirmen -->
-      <button class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
+      <button type="button" class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
         <span></span>
         <span></span>
         <span></span>
@@ -133,6 +133,43 @@
 
         </div>
 
+        <!-- feld fuer die postleitzahl (nur zahlen) -->
+        <div class="form-group">
+
+          <label for="plz">Postleitzahl *</label>
+
+          <!-- type number blendet auf dem handy die zahlen-tastatur ein -->
+          <input
+            type="number"
+            id="plz"
+            name="plz"
+            placeholder="z. B. 6000"
+          >
+
+          <!-- fehlermeldung fuer plz -->
+          <span class="error-msg" id="plz-error"></span>
+
+        </div>
+
+        <!-- dropdown fuer das anliegen (select-feld) -->
+        <div class="form-group">
+
+          <label for="anliegen">Anliegen *</label>
+
+          <!-- der erste eintrag ist leer und dient als platzhalter -->
+          <select id="anliegen" name="anliegen">
+            <option value="">Bitte auswählen …</option>
+            <option value="beratung">Beratung</option>
+            <option value="bestellung">Bestellung / Kauf</option>
+            <option value="reparatur">Reparatur / Service</option>
+            <option value="sonstiges">Sonstiges</option>
+          </select>
+
+          <!-- fehlermeldung fuer anliegen -->
+          <span class="error-msg" id="anliegen-error"></span>
+
+        </div>
+
         <!-- feld fuer betreff -->
         <div class="form-group">
 
@@ -186,11 +223,15 @@
         </div>
 
         <!-- button zum absenden -->
-        <button type="submit" class="btn-primary">
+        <button type="submit" class="btn-primary" id="submit-btn">
           NACHRICHT SENDEN
         </button>
 
-        <!-- erfolgsmeldung, wenn alles richtig ausgefuellt wurde -->
+        <!-- lade-spinner: dreht sich, solange die daten gespeichert werden -->
+        <!-- "hidden" versteckt ihn am anfang, javascript blendet ihn ein/aus -->
+        <div class="spinner" id="form-spinner" hidden></div>
+
+        <!-- erfolgs- oder fehlermeldung vom server -->
         <p class="success-msg" id="success-msg"></p>
 
       </form>

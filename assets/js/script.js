@@ -130,23 +130,34 @@ if (slides.length > 0) {
 }
 
 
-/* kontaktformular pruefen */
+/* kontaktformular pruefen und bestaetigen */
 const kontaktForm = document.getElementById("kontakt-form");
 
 if (kontaktForm) {
+
+  /* spinner und absende-button fuer den ladezustand */
+  const spinner = document.getElementById("form-spinner");
+  const submitBtn = document.getElementById("submit-btn");
+
   kontaktForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let isValid = true;
 
+    /* alle eingabefelder holen */
     const name = document.getElementById("name");
     const email = document.getElementById("email");
+    const plz = document.getElementById("plz");
+    const anliegen = document.getElementById("anliegen");
     const betreff = document.getElementById("betreff");
     const nachricht = document.getElementById("nachricht");
     const datenschutz = document.getElementById("datenschutz");
 
+    /* die passenden fehlermeldungs-felder dazu */
     const nameError = document.getElementById("name-error");
     const emailError = document.getElementById("email-error");
+    const plzError = document.getElementById("plz-error");
+    const anliegenError = document.getElementById("anliegen-error");
     const betreffError = document.getElementById("betreff-error");
     const nachrichtError = document.getElementById("nachricht-error");
     const datenschutzError = document.getElementById("datenschutz-error");
@@ -171,6 +182,24 @@ if (kontaktForm) {
       emailError.textContent = "";
     }
 
+    /* plz: darf nur aus zahlen bestehen und nicht leer sein */
+    const plzNurZahlen = /^[0-9]+$/;
+
+    if (!plzNurZahlen.test(plz.value.trim())) {
+      plzError.textContent = "Bitte gib eine gültige Postleitzahl ein (nur Zahlen).";
+      isValid = false;
+    } else {
+      plzError.textContent = "";
+    }
+
+    /* anliegen: es muss ein eintrag gewaehlt sein (nicht der leere) */
+    if (anliegen.value === "") {
+      anliegenError.textContent = "Bitte wähle ein Anliegen aus.";
+      isValid = false;
+    } else {
+      anliegenError.textContent = "";
+    }
+
     if (betreff.value.trim() === "") {
       betreffError.textContent = "Bitte gib einen Betreff ein.";
       isValid = false;
@@ -192,9 +221,21 @@ if (kontaktForm) {
       datenschutzError.textContent = "";
     }
 
+    /* nur wenn alle felder ok sind: kurz "senden" anzeigen und bestaetigen */
     if (isValid) {
-      successMsg.textContent = "Deine Nachricht wurde erfolgreich gesendet! Wir melden uns bald bei dir.";
-      kontaktForm.reset();
+
+      spinner.hidden = false;     // spinner anzeigen
+      submitBtn.disabled = true;  // doppel-absenden verhindern
+
+      /* HINWEIS: das echte speichern in die datenbank (per fetch an ein backend) */
+      /* wird separat ergaenzt. hier simulieren wir kurz das senden, damit man    */
+      /* den spinner sieht, und zeigen danach die erfolgsmeldung an.              */
+      setTimeout(function () {
+        spinner.hidden = true;      // spinner wieder ausblenden
+        submitBtn.disabled = false; // button wieder aktiv
+        successMsg.textContent = "Deine Nachricht wurde erfolgreich gesendet! Wir melden uns bald bei dir.";
+        kontaktForm.reset();
+      }, 800);
     }
   });
 }
