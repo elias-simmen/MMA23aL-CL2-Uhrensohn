@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Shopping bag icon">
+  <path d="M7.25 9.25h9.5l.8 10.25a1.45 1.45 0 0 1-1.45 1.55H7.9a1.45 1.45 0 0 1-1.45-1.55l.8-10.25Z" stroke="#C7A857" stroke-width="1.7" stroke-linejoin="round"/>
+  <path d="M9.25 10.2V7.65a2.75 2.75 0 0 1 5.5 0v2.55" stroke="#C7A857" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M9 13.25h6" stroke="#111326" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>
+</svg>

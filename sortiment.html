@@ -1,42 +1,50 @@
 <!DOCTYPE html>
 <html lang="de">
 
+<!-- sortiment.html datei, hier werden alle uhren von uhrensohn angezeigt (8, nicht nur 4) -->
 <head>
 
+  <!-- damit umlaute richtig angezeigt werden (oe,ae,ue) -->
   <meta charset="UTF-8">
+
+  <!-- logo im browser-tab (anstelle vom globus oben links vom tab) -->
+  <link rel="icon" type="image/jpeg" href="assets/images/Logo_Uhrensohn1.jpg">
+
+  <!-- responsive design, je nach geraet -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>UHRENSOHN – Sortiment</title>
 
-  <!-- Google Fonts -->
+  <!-- schriften von google holen -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Gemeinsames CSS -->
+  <!-- design und layout verknuepfung -->
   <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
 <body>
 
-
-  <!-- =========================
-       NAVIGATION
-       Gleich auf allen Seiten.
-  ========================= -->
-
+  <!-- navigation der webseite -->
   <nav>
 
+    <!-- logo mit link zur startseite drauf -->
     <div class="nav-left">
       <a href="index.html">
+
+        <!-- logo oben links im header -->
         <img
-          src="assets/images/Logo_Uhrensohn.jpg"
+          src="assets/images/uhrensohn_logo.jpg"
           alt="Uhrensohn Logo"
           class="logo"
         >
+
       </a>
     </div>
 
+    <!-- verlinkungen zu den einzelnen seiten -->
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html"      class="nav-link">Home</a></li>
       <li><a href="sortiment.html"  class="nav-link">Sortiment</a></li>
@@ -44,83 +52,101 @@
       <li><a href="kontakt.html"    class="nav-link">Kontakt</a></li>
     </ul>
 
+    <!-- suche, warenkorb und mobile-menue -->
     <div class="nav-right">
-      <div class="icon">⌕</div>
-      <div class="icon">👜</div>
+
+      <button class="icon" aria-label="Suche öffnen">
+        <img src="assets/images/header_search.svg" alt="" aria-hidden="true">
+      </button>
+
+      <button class="icon" aria-label="Warenkorb öffnen">
+        <img src="assets/images/header_shopping.svg" alt="" aria-hidden="true">
+      </button>
+
+      <!-- button fuer das menue auf kleinen bildschirmen -->
       <button class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
         <span></span>
         <span></span>
         <span></span>
       </button>
+
     </div>
 
   </nav>
 
-
-  <!-- =========================
-       SORTIMENT
-       Das Produkt-Grid wird automatisch
-       von script.js befüllt (gleiche Daten wie Startseite).
-  ========================= -->
-
+  <!-- sortiment-bereich mit allen uhren -->
   <section class="products">
 
+    <!-- titel vom sortiment-bereich -->
     <div class="section-title">
       <div class="line"></div>
       <h2>UNSER SORTIMENT</h2>
       <div class="line"></div>
     </div>
 
-    <!-- Produkte werden hier von JavaScript eingefügt -->
+    <!-- produkte werden mit javascript eingefuegt -->
     <div class="product-grid" id="product-grid"></div>
 
   </section>
 
-
-  <!-- =========================
-       FOOTER
-       Gleich auf allen Seiten.
-  ========================= -->
-
+  <!-- footer -->
   <footer>
 
+    <!-- links zu ueber uns und kontakt -->
     <div class="footer-col">
       <h4>UHRENSOHN</h4>
       <a href="ueber-uns.html">Über uns</a>
       <a href="kontakt.html">Kontakt</a>
     </div>
 
+    <!-- link zum sortiment -->
     <div class="footer-col">
       <h4>SHOP</h4>
       <a href="sortiment.html">Sortiment</a>
     </div>
 
+    <!-- oeffnungszeiten -->
     <div class="footer-col">
       <h4>ÖFFNUNGSZEITEN</h4>
       <p>Mo – Fr: 09:00 – 18:00</p>
       <p>Sa: 10:00 – 16:00</p>
       <p>So: Geschlossen</p>
+      <p>Online: An 365 Tagen im Jahr geöffnet!</p>
     </div>
 
+    <!-- social media und rechtliche links -->
     <div class="footer-col">
-      <h4>FOLGE UNS</h4>
-      <a href="#" class="social-link">📷 Instagram</a>
-      <a href="#" class="social-link">📘 Facebook</a>
+  <h4>FOLGE UNS</h4>
+  <a href="https://www.instagram.com/bbzw_berufsfachschule/" class="social-link">
+    <span class="social-icon-circle">
+    <img src="assets/images/footer_instagram.svg" alt="" aria-hidden="true">
+    </span>
+    <span>Instagram</span>
+  </a>
+
+  <a href="https://www.facebook.com/pages/BBZW%20Sursee/426291944073854/#" class="social-link">
+    <span class="social-icon-circle">
+    <img src="assets/images/footer_facebook.svg" alt="" aria-hidden="true">
+    </span>
+    <span>Facebook</span>
+  </a>
+
+      <!-- impressum und datenschutz-disclaimer -->
       <div class="footer-legal">
-        <a href="#">Impressum</a>
-        <a href="#">Datenschutz</a>
+        <a href="https://beruf.lu.ch/Impressum">Impressum</a>
+        <a href="https://beruf.lu.ch/Disclaimer">Disclaimer</a>
       </div>
     </div>
 
+    <!-- hinweis zum schulprojekt -->
     <div class="footer-bottom">
-      <p>Projekt von: Elias, [Vorname 2], [Vorname 3]</p>
+      <p>UHRENSOHN ist ein Schulprojekt von Elias Simmen, Fabio Alverde, Martim da Silva Pinto und Silvan Bachmann.</p>
       <p>Das ist ein Schulprojekt und keine reale Website.</p>
     </div>
 
   </footer>
 
-
-  <!-- Gemeinsames JavaScript -->
+  <!-- funktionen fuer menue und produkte (verlinkung) -->
   <script src="assets/js/script.js"></script>
 
 </body>

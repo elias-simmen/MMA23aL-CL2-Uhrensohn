@@ -1,42 +1,50 @@
 <!DOCTYPE html>
 <html lang="de">
 
+<!-- kontakt.html file, die kontaktseite von uhrensohn also -->
 <head>
 
+  <!-- damit umlaute richtig angezeigt werden (oe,ae,ue) -->
   <meta charset="UTF-8">
+
+  <!-- logo im browser-tab (anstelle vom globus oben links vom tab) -->
+  <link rel="icon" type="image/jpeg" href="assets/images/Logo_Uhrensohn1.jpg">
+
+  <!-- responsive design, je nach geraet -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>UHRENSOHN – Kontakt</title>
 
-  <!-- Google Fonts -->
+  <!-- schriften von google holen -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Gemeinsames CSS -->
+  <!-- design und layout verknuepfung -->
   <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
 <body>
 
-
-  <!-- =========================
-       NAVIGATION
-       Gleich auf allen Seiten.
-  ========================= -->
-
+  <!-- navigation der webseite -->
   <nav>
 
+    <!-- logo mit link zur startseite drauf -->
     <div class="nav-left">
       <a href="index.html">
+
+        <!-- logo oben links in header -->
         <img
-          src="assets/images/Logo_Uhrensohn.jpg"
+          src="assets/images/uhrensohn_logo.jpg"
           alt="Uhrensohn Logo"
           class="logo"
         >
+
       </a>
     </div>
 
+    <!-- verlinkungen zu den einzelnen seiten -->
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html"      class="nav-link">Home</a></li>
       <li><a href="sortiment.html"  class="nav-link">Sortiment</a></li>
@@ -44,53 +52,53 @@
       <li><a href="kontakt.html"    class="nav-link">Kontakt</a></li>
     </ul>
 
+    <!-- suche, warenkorb und mobile-menue -->
     <div class="nav-right">
-      <div class="icon">⌕</div>
-      <div class="icon">👜</div>
+
+      <button class="icon" aria-label="Suche öffnen">
+        <img src="assets/images/header_search.svg" alt="" aria-hidden="true">
+      </button>
+
+      <button class="icon" aria-label="Warenkorb öffnen">
+        <img src="assets/images/header_shopping.svg" alt="" aria-hidden="true">
+      </button>
+
+      <!-- button fuer das menue auf kleinen bildschirmen -->
       <button class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
         <span></span>
         <span></span>
         <span></span>
       </button>
+
     </div>
 
   </nav>
 
-
-  <!-- =========================
-       KONTAKT-FORMULAR
-
-       VALIDIERUNGSKONZEPT (Zusammenfassung):
-       Feld 1 – Name:        min. 2 Zeichen, Pflichtfeld
-       Feld 2 – E-Mail:      gültiges Format (x@x.x), Pflichtfeld
-       Feld 3 – Betreff:     darf nicht leer sein, Pflichtfeld
-       Feld 4 – Nachricht:   min. 10 Zeichen, Pflichtfeld
-       Feld 5 – Datenschutz: muss angehakt sein, Pflichtfeld
-
-       Die genaue Validierungslogik ist in script.js dokumentiert.
-  ========================= -->
-
+  <!-- kontaktbereich mit formular -->
   <section class="kontakt-section">
 
     <div class="kontakt-container">
 
+      <!-- titel und kurzer text -->
       <h2>KONTAKT</h2>
       <p>
         Schreibe uns eine Nachricht – wir melden uns so schnell wie möglich bei dir.
       </p>
 
       <!--
-        novalidate: Deaktiviert die eingebaute HTML5-Validierung des Browsers.
-        Ohne novalidate würde der Browser z.B. bei type="email" selbst prüfen
-        und eine eigene Fehlermeldung anzeigen.
-        Mit novalidate übernehmen WIR die Validierung mit JavaScript (script.js),
-        damit wir eigene, deutschsprachige Fehlermeldungen anzeigen können.
-        Aufgabe sagt ausdrücklich: HTML5-Validierung ist nicht erlaubt!
+        validierung vom kontaktformular:
+        name: mindestens 2 zeichen und pflichtfeld
+        e-mail: muss wie eine richtige e-mail aussehen und ist pflicht
+        betreff: darf nicht leer sein
+        nachricht: mindestens 10 zeichen (damit keine fake-nachrichtren kommen wie nur "hallo" oder aehnlicher gugus)
+        datenschutz: muss angehakt werden
+
+        novalidate bedeutet, dass nicht der browser selber prueft,
+        sondern unser javascript in script.js.
       -->
       <form id="kontakt-form" novalidate>
 
-
-        <!-- Feld 1: Name -->
+        <!-- feld fuer name -->
         <div class="form-group">
 
           <label for="name">Name *</label>
@@ -102,21 +110,17 @@
             placeholder="Dein Vor- und Nachname"
           >
 
-          <!-- Fehlermeldung wird von JavaScript befüllt -->
+          <!-- fehlermeldung wird mit javascript eingefuegt -->
           <span class="error-msg" id="name-error"></span>
 
         </div>
 
-
-        <!-- Feld 2: E-Mail -->
+        <!-- feld fuer e-mail -->
         <div class="form-group">
 
           <label for="email">E-Mail *</label>
 
-          <!--
-            type="text" statt type="email", damit der Browser
-            NICHT selbst validiert – wir machen es mit JS.
-          -->
+          <!-- type text, damit der browser nicht selber validiert -->
           <input
             type="text"
             id="email"
@@ -124,12 +128,12 @@
             placeholder="deine@email.ch"
           >
 
+          <!-- fehlermeldung fuer e-mail -->
           <span class="error-msg" id="email-error"></span>
 
         </div>
 
-
-        <!-- Feld 3: Betreff -->
+        <!-- feld fuer betreff -->
         <div class="form-group">
 
           <label for="betreff">Betreff *</label>
@@ -141,12 +145,12 @@
             placeholder="Worum geht es?"
           >
 
+          <!-- fehlermeldung fuer betreff -->
           <span class="error-msg" id="betreff-error"></span>
 
         </div>
 
-
-        <!-- Feld 4: Nachricht -->
+        <!-- feld fuer nachricht -->
         <div class="form-group">
 
           <label for="nachricht">Nachricht *</label>
@@ -158,12 +162,12 @@
             placeholder="Deine Nachricht (mindestens 10 Zeichen)..."
           ></textarea>
 
+          <!-- fehlermeldung fuer nachricht -->
           <span class="error-msg" id="nachricht-error"></span>
 
         </div>
 
-
-        <!-- Feld 5: Datenschutz-Checkbox -->
+        <!-- checkbox fuer datenschutz -->
         <div class="form-group form-group--checkbox">
 
           <input
@@ -173,23 +177,21 @@
           >
 
           <label for="datenschutz">
-            Ich habe die <a href="#">Datenschutzerklärung</a> gelesen und stimme zu. *
+            Ich habe die <a href="https://beruf.lu.ch/Disclaimer">Datenschutzerklärung</a> gelesen und stimme zu. *
           </label>
 
+          <!-- fehlermeldung fuer datenschutz -->
           <span class="error-msg" id="datenschutz-error"></span>
 
         </div>
 
-
-        <!-- Absenden-Button -->
+        <!-- button zum absenden -->
         <button type="submit" class="btn-primary">
           NACHRICHT SENDEN
         </button>
 
-
-        <!-- Erfolgsmeldung (bleibt leer bis das Formular gültig abgesendet wird) -->
+        <!-- erfolgsmeldung, wenn alles richtig ausgefuellt wurde -->
         <p class="success-msg" id="success-msg"></p>
-
 
       </form>
 
@@ -197,51 +199,65 @@
 
   </section>
 
-
-  <!-- =========================
-       FOOTER
-       Gleich auf allen Seiten.
-  ========================= -->
-
+  <!-- footer -->
   <footer>
 
+    <!-- links zu ueber uns und kontakt -->
     <div class="footer-col">
       <h4>UHRENSOHN</h4>
       <a href="ueber-uns.html">Über uns</a>
       <a href="kontakt.html">Kontakt</a>
     </div>
 
+    <!-- link zum sortiment -->
     <div class="footer-col">
       <h4>SHOP</h4>
       <a href="sortiment.html">Sortiment</a>
     </div>
 
+    <!-- oeffnungszeiten -->
     <div class="footer-col">
       <h4>ÖFFNUNGSZEITEN</h4>
       <p>Mo – Fr: 09:00 – 18:00</p>
       <p>Sa: 10:00 – 16:00</p>
       <p>So: Geschlossen</p>
+      <p>Online: An 365 Tagen im Jahr geöffnet!</p>
     </div>
 
+    <!-- social media und rechtliche links -->
+    <!-- social media und rechtliche links -->
     <div class="footer-col">
-      <h4>FOLGE UNS</h4>
-      <a href="#" class="social-link">📷 Instagram</a>
-      <a href="#" class="social-link">📘 Facebook</a>
+  <h4>FOLGE UNS</h4>
+  <a href="https://www.instagram.com/bbzw_berufsfachschule/" class="social-link">
+    <span class="social-icon-circle">
+    <img src="assets/images/footer_instagram.svg" alt="" aria-hidden="true">
+    </span>
+    <span>Instagram</span>
+  </a>
+
+  <a href="https://www.facebook.com/pages/BBZW%20Sursee/426291944073854/#" class="social-link">
+    <span class="social-icon-circle">
+    <img src="assets/images/footer_facebook.svg" alt="" aria-hidden="true">
+    </span>
+    <span>Facebook</span>
+  </a>
+
+      <!-- impressum und datenschutz-disclamer -->
       <div class="footer-legal">
-        <a href="#">Impressum</a>
-        <a href="#">Datenschutz</a>
+        <a href="https://beruf.lu.ch/Impressum">Impressum</a>
+        <a href="https://beruf.lu.ch/Disclaimer">Disclaimer</a>
       </div>
     </div>
 
+    <!-- hinweis zum schulprojekt -->
     <div class="footer-bottom">
-      <p>Projekt von: Elias, [Vorname 2], [Vorname 3]</p>
+      <p>UHRENSOHN ist ein Schulprojekt von Elias Simmen, Fabio Alverde, Martim da Silva Pinto und Silvan Bachmann.</p>
       <p>Das ist ein Schulprojekt und keine reale Website.</p>
     </div>
 
   </footer>
 
-
-  <!-- Gemeinsames JavaScript -->
+  <!-- funktionen fuer menue und kontaktformular (verlinkung) -->
   <script src="assets/js/script.js"></script>
 
 </body>

@@ -1,42 +1,77 @@
 <!DOCTYPE html>
 <html lang="de">
 
+<!-- ueber-uns.html file, hier stellen wir uhrensohn kurz vor -->
 <head>
 
+  <!-- damit umlaute richtig angezeigt werden (oe,ae,ue) -->
   <meta charset="UTF-8">
+
+  <!-- logo im browser-tab (anstelle vom globus oben links vom tab) -->
+  <link rel="icon" type="image/jpeg" href="assets/images/icon_tab.jpg">
+
+  <!-- responsive design, je nach geraet -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>UHRENSOHN – Über uns</title>
 
-  <!-- Google Fonts -->
+  <!-- schriften von google holen -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Gemeinsames CSS -->
+  <!-- design und layout verknuepfung -->
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- groessere aussparung fuer das shop-bild auf der ueber-uns-seite. weil erst am schluss geaendert nicht im css file - sorry -->
+  <style>
+    .ueber-uns-image {
+      width: min(100%, 1150px) !important;
+      margin: 30px auto 36px !important;
+      aspect-ratio: 3 / 2;
+      min-height: clamp(320px, 48vw, 680px);
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    .ueber-uns-image img {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    @media (max-width: 700px) {
+      .ueber-uns-image {
+        min-height: 240px;
+        margin: 22px auto 28px !important;
+      }
+    }
+  </style>
 
 </head>
 
 <body>
 
-
-  <!-- =========================
-       NAVIGATION
-       Gleich auf allen Seiten.
-  ========================= -->
-
+  <!-- navigation der webseite -->
   <nav>
 
+    <!-- logo mit link zur startseite drauf -->
     <div class="nav-left">
       <a href="index.html">
+
+        <!-- logo oben links im header -->
         <img
-          src="assets/images/Logo_Uhrensohn.jpg"
+          src="assets/images/uhrensohn_logo.jpg"
           alt="Uhrensohn Logo"
           class="logo"
         >
+
       </a>
     </div>
 
+    <!-- verlinkungen zu den einzelnen seiten -->
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html"      class="nav-link">Home</a></li>
       <li><a href="sortiment.html"  class="nav-link">Sortiment</a></li>
@@ -44,112 +79,132 @@
       <li><a href="kontakt.html"    class="nav-link">Kontakt</a></li>
     </ul>
 
+    <!-- suche, warenkorb und mobile-menue -->
     <div class="nav-right">
-      <div class="icon">⌕</div>
-      <div class="icon">👜</div>
-      <button class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
+
+      <button type="button" class="icon" aria-label="Suche öffnen">
+        <img src="assets/images/header_search.svg" alt="" aria-hidden="true">
+      </button>
+
+      <button type="button" class="icon" aria-label="Warenkorb öffnen">
+        <img src="assets/images/header_shopping.svg" alt="" aria-hidden="true">
+      </button>
+
+      <!-- button fuer das menue auf kleinen bildschirmen -->
+      <button type="button" class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
         <span></span>
         <span></span>
         <span></span>
       </button>
+
     </div>
 
   </nav>
 
-
-  <!-- =========================
-       ÜBER UNS – INHALT
-  ========================= -->
-
+  <!-- ueber uns bereich mit text und bildplatzhalter -->
   <section class="ueber-uns-section">
 
     <div class="ueber-uns-container">
 
+      <!-- titel -->
       <h2>ÜBER UHRENSOHN</h2>
 
-      <!-- Bild-Platzhalter: Bild hier in VS Code einfügen -->
-      <!-- Beispiel: <img src="assets/images/team.jpg" alt="Unser Team"> -->
+      <!-- bild und im anschluss der fliesstext -->
       <div class="ueber-uns-image">
-        Bild hier einfügen
+        <img src="assets/images/uu_shop.jpg" alt="Uhrensohn Shop">
       </div>
 
-      <!-- Text-Inhalt -->
+      <!-- text ueber die idee von uhrensohn -->
       <div class="ueber-uns-text">
-
         <p>
-          Uhrensohn wurde mit einer einfachen Überzeugung gegründet: Jeder verdient
-          eine Uhr, die ihn begleitet – durch jeden Moment des Lebens. Wir verbinden
-          die traditionsreiche Schweizer Uhrmacherkunst mit einem modernen,
-          digitalen Einkaufserlebnis.
+          Uhrensohn ist mehr als ein Onlineshop für Uhren. Wir stehen für Leidenschaft, Qualität und eine Community, die die Faszination für Zeitmesser teilt.
+          Ob erste Uhr, stilvoller Alltagsbegleiter oder besonderes Sammlerstück: Bei uns finden Uhrenliebhaberinnen und Uhrenliebhaber sorgfältig ausgewählte Modelle für unterschiedliche Ansprüche, Stilrichtungen und Budgets. Dabei geht es uns nicht nur um den Verkauf, sondern um ein Einkaufserlebnis, das persönlich, ehrlich und inspirierend ist.
+          Unsere Kundinnen und Kunden profitieren von zuverlässigem Service, langfristiger Betreuung und einem Umfeld, in dem die Freude an Uhren im Mittelpunkt steht. Mit Uhrensohn+ schaffen wir zusätzlich Raum für exklusive Vorteile, besondere Erlebnisse und den Austausch innerhalb unserer Community.
+          Wir möchten Menschen zusammenbringen, die Uhren nicht nur tragen, sondern schätzen. Uhrensohn verbindet hochwertige Zeitmesser mit persönlichem Service und echter Begeisterung — für alle, die Uhren lieben. Uhrensohn - von Uhrensöhnen, für Uhrensöhne (und Uhrentöchter ;)
         </p>
-
-        <p>
-          Unser Sortiment umfasst sorgfältig ausgewählte Zeitmesser von renommierten
-          Schweizer Marken. Ob klassisch-elegant oder sportlich-modern – bei uns
-          findest du die Uhr, die zu deinem Stil passt.
-        </p>
-
-        <p>
-          Qualität, Ehrlichkeit und persönlicher Service stehen bei uns an erster Stelle.
-          Hast du Fragen? Schreib uns jederzeit über unser Kontaktformular.
-        </p>
-
       </div>
 
-      <!-- Button zur Kontaktseite -->
-      <a href="kontakt.html">
-        <button class="btn-primary">KONTAKT AUFNEHMEN</button>
-      </a>
+      <!-- button zur kontaktseite -->
+      <a href="kontakt.html" class="btn-primary">KONTAKT AUFNEHMEN</a>
+
+      <!-- kleines game auf der ueber-uns-seite -->
+      <div class="game-section">
+
+        <h2>WERDE ZUM UHRENSOHN</h2>
+
+        <p class="game-subtitle">
+          Entkomme den Fälschungen!
+        </p>
+
+        <div class="game-placeholder">
+          <!-- hier kommt spaeter das dino-game hinein -->
+        </div>
+
+      </div>
 
     </div>
 
   </section>
 
-
-  <!-- =========================
-       FOOTER
-       Gleich auf allen Seiten.
-  ========================= -->
-
+  <!-- footer -->
   <footer>
 
+    <!-- links zu ueber uns und kontakt -->
     <div class="footer-col">
       <h4>UHRENSOHN</h4>
       <a href="ueber-uns.html">Über uns</a>
       <a href="kontakt.html">Kontakt</a>
     </div>
 
+    <!-- link zum sortiment -->
     <div class="footer-col">
       <h4>SHOP</h4>
       <a href="sortiment.html">Sortiment</a>
     </div>
 
+    <!-- oeffnungszeiten -->
     <div class="footer-col">
       <h4>ÖFFNUNGSZEITEN</h4>
       <p>Mo – Fr: 09:00 – 18:00</p>
       <p>Sa: 10:00 – 16:00</p>
       <p>So: Geschlossen</p>
+      <p>Online: An 365 Tagen im Jahr geöffnet!</p>
     </div>
 
+    <!-- social media und rechtliche links -->
     <div class="footer-col">
       <h4>FOLGE UNS</h4>
-      <a href="#" class="social-link">📷 Instagram</a>
-      <a href="#" class="social-link">📘 Facebook</a>
+
+      <a href="https://www.instagram.com/bbzw_berufsfachschule/" class="social-link">
+        <span class="social-icon-circle">
+          <img src="assets/images/footer_instagram.svg" alt="" aria-hidden="true">
+        </span>
+        <span>Instagram</span>
+      </a>
+
+      <a href="https://www.facebook.com/pages/BBZW%20Sursee/426291944073854/#" class="social-link">
+        <span class="social-icon-circle">
+          <img src="assets/images/footer_facebook.svg" alt="" aria-hidden="true">
+        </span>
+        <span>Facebook</span>
+      </a>
+
+      <!-- impressum und datenschutz-disclamer -->
       <div class="footer-legal">
-        <a href="#">Impressum</a>
-        <a href="#">Datenschutz</a>
+        <a href="https://beruf.lu.ch/Impressum">Impressum</a>
+        <a href="https://beruf.lu.ch/Disclaimer">Disclaimer</a>
       </div>
     </div>
 
+    <!-- hinweis zum schulprojekt -->
     <div class="footer-bottom">
-      <p>Projekt von: Elias, [Vorname 2], [Vorname 3]</p>
+      <p>UHRENSOHN ist ein Schulprojekt von Elias Simmen, Fabio Alverde, Martim da Silva Pinto und Silvan Bachmann.</p>
       <p>Das ist ein Schulprojekt und keine reale Website.</p>
     </div>
 
   </footer>
 
-
-  <!-- Gemeinsames JavaScript -->
+  <!-- funktionen fuer menue und weitere interaktionen (verlinkung) -->
   <script src="assets/js/script.js"></script>
 
 </body>
