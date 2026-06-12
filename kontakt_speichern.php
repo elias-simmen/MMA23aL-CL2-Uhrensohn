@@ -10,11 +10,11 @@
 header('Content-Type: application/json; charset=utf-8');
 
 /* ---- 1. Datenbank-Zugangsdaten (wie in index.php) -------------------- */
-$host = 'localhost';
-$port = 3306;
-$db   = 'fabio-alverde_';
-$user = 'fabio-alverde';
-$pass = 'Y.8rbcViYA:2.J3';   // <-- dasselbe Passwort wie in index.php eintragen
+$host = 'localhost';  
+$port = 3306;                        
+$db   = 'fabio-alverde_';        
+$user = 'fabio-alverde-1';          
+$pass = 'Y.8rbcViYA:2.J3';      // <-- dasselbe Passwort wie in index.php eintragen
 
 /* ---- 2. Nur POST-Anfragen zulassen ----------------------------------- */
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
