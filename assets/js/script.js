@@ -221,7 +221,7 @@ if (kontaktForm) {
       datenschutzError.textContent = "";
     }
 
-     /* nur wenn alle felder ok sind: an das PHP-skript schicken und speichern */
+    /* nur wenn alle felder ok sind: an das PHP-skript schicken und speichern */
     if (isValid) {
 
       spinner.hidden = false;     // spinner anzeigen
@@ -262,6 +262,8 @@ if (kontaktForm) {
         });
     }
 
+  });
+}
 
 
 /* ============================================================ */
@@ -288,8 +290,6 @@ if (gameBoard) {
   let gameState = "start";
 
   /* physik-werte fuer den sprung (in pixel pro sekunde) */
-  /* etwas geringere schwerkraft -> die figur bleibt laenger oben    */
-  /* und springt die grossen uhren mit komfortablem abstand drueber  */
   const gravity   = 1450;   // zieht die figur nach unten
   const jumpPower = 650;    // anfangs-geschwindigkeit beim absprung
   let playerY      = 0;     // hoehe der figur ueber dem boden
@@ -301,30 +301,20 @@ if (gameBoard) {
   let spawnTimer = 1.2;     // restzeit bis zum naechsten hindernis (sek)
   const baseSpeed = 320;    // start-tempo der hindernisse (px/sek)
 
-  /* punkte und highscore – der highscore bleibt im localStorage   */
-  /* ueber mehrere besuche hinweg gespeichert                      */
+  /* punkte und highscore */
   let score = 0;
   let highscore = Number(localStorage.getItem("uhrGameHighscore")) || 0;
   highscoreLabel.textContent = highscore;
 
   let lastTime = 0;         // zeitstempel des letzten frames
 
-  /* aktuelles tempo: steigt mit der punktzahl -> wird schwieriger  */
-  /* (nach oben begrenzt, damit es spielbar bleibt)                */
   function currentSpeed() {
     return Math.min(760, baseSpeed + score * 3);
   }
 
-  /* die grafiken player_figur.png und hindernis_uhr.png sind PNGs   */
-  /* mit grossem durchsichtigem rand. diese (am bild gemessenen)     */
-  /* werte sagen, welcher anteil rundherum durchsichtig ist und      */
-  /* deshalb weggerechnet wird – so zaehlt fuer die kollision nur     */
-  /* die wirklich sichtbare figur bzw. uhr, nicht die leere flaeche.  */
-  /* dadurch ist die kollision bei jeder bildgroesse fair.            */
   const playerInset   = { left: 0.30, right: 0.34, top: 0.12, bottom: 0.15 };
   const obstacleInset = { left: 0.34, right: 0.28, top: 0.24, bottom: 0.30 };
 
-  /* aus dem element-rechteck das rechteck der sichtbaren grafik machen */
   function visibleBox(rect, inset) {
     const w = rect.right - rect.left;
     const h = rect.bottom - rect.top;
@@ -336,7 +326,6 @@ if (gameBoard) {
     };
   }
 
-  /* pruefen, ob sich zwei rechtecke ueberlappen (kollision) */
   function isHit(a, b) {
     return (
       a.left < b.right &&
@@ -346,7 +335,6 @@ if (gameBoard) {
     );
   }
 
-  /* die figur springen lassen – aber nur vom boden aus            */
   function jump() {
     if (onGround) {
       playerSpeed = jumpPower;
@@ -354,7 +342,6 @@ if (gameBoard) {
     }
   }
 
-  /* ein neues uhr-hindernis am rechten rand erzeugen               */
   function spawnObstacle() {
     const uhr = document.createElement("img");
     uhr.src = "assets/images/T-Rex_Game/hindernis_uhr.png";
@@ -366,14 +353,11 @@ if (gameBoard) {
     obstacles.push({ el: uhr, x: startX });
   }
 
-  /* alle hindernisse aus dem feld entfernen (beim (neu-)start)     */
   function clearObstacles() {
     obstacles.forEach(function (o) { o.el.remove(); });
     obstacles = [];
   }
 
-  /* einen einzelnen frame des spiels berechnen                     */
-  /* delta = vergangene zeit seit dem letzten frame (in sekunden)   */
   function update(delta) {
 
     /* punkte hochzaehlen (10 punkte pro sekunde) */
@@ -396,13 +380,11 @@ if (gameBoard) {
     spawnTimer -= delta;
     if (spawnTimer <= 0) {
       spawnObstacle();
-      // abstand zufaellig, wird mit hoeherem score etwas kleiner
       spawnTimer = Math.max(0.7, 1.6 - score * 0.01) + Math.random() * 0.6;
     }
 
     /* alle hindernisse nach links bewegen und auf treffer pruefen   */
     const speed = currentSpeed();
-    /* sichtbare box der figur (ohne durchsichtigen rand) */
     const playerBox = visibleBox(player.getBoundingClientRect(), playerInset);
 
     for (let i = obstacles.length - 1; i >= 0; i--) {
@@ -410,13 +392,11 @@ if (gameBoard) {
       o.x -= speed * delta;
       o.el.style.left = o.x + "px";
 
-      /* zusammenstoss der sichtbaren figur mit der sichtbaren uhr -> game over */
       if (isHit(playerBox, visibleBox(o.el.getBoundingClientRect(), obstacleInset))) {
         endGame();
         return;
       }
 
-      /* hindernis ist links rausgelaufen -> entfernen (aufraeumen) */
       if (o.x < -80) {
         o.el.remove();
         obstacles.splice(i, 1);
@@ -424,7 +404,6 @@ if (gameBoard) {
     }
   }
 
-  /* die spiel-schleife: laeuft ueber requestAnimationFrame (~60x/s) */
   function loop(timestamp) {
     if (gameState !== "running") return;
     const delta = (timestamp - lastTime) / 1000; // ms -> sekunden
@@ -435,7 +414,6 @@ if (gameBoard) {
     }
   }
 
-  /* spiel (neu) starten – setzt alle werte zurueck                 */
   function startGame() {
     clearObstacles();
     score = 0;
@@ -450,7 +428,6 @@ if (gameBoard) {
     requestAnimationFrame(loop);
   }
 
-  /* spiel beenden (game over) und ggf. neuen highscore speichern   */
   function endGame() {
     gameState = "over";
 
@@ -465,9 +442,6 @@ if (gameBoard) {
     overOverlay.classList.remove("uhr-game-hidden");
   }
 
-  /* eine eingabe verarbeiten (taste oder klick/tap)                */
-  /* im start-/game-over-zustand startet sie das spiel,             */
-  /* waehrend des spiels laesst sie die figur springen              */
   function handleInput() {
     if (gameState === "running") {
       jump();
@@ -476,12 +450,8 @@ if (gameBoard) {
     }
   }
 
-  /* klick oder tap irgendwo auf dem spielfeld (auch auf die buttons,*/
-  /* da das pointer-ereignis nach oben zum spielfeld weitergereicht  */
-  /* wird) – pointerdown deckt maus und touch gemeinsam ab           */
   gameBoard.addEventListener("pointerdown", handleInput);
 
-  /* leertaste (oder pfeil-hoch) zum springen / starten             */
   document.addEventListener("keydown", function (event) {
     if (event.code === "Space" || event.code === "ArrowUp") {
       event.preventDefault();  // verhindert das scrollen der seite
