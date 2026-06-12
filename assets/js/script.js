@@ -221,24 +221,47 @@ if (kontaktForm) {
       datenschutzError.textContent = "";
     }
 
-    /* nur wenn alle felder ok sind: kurz "senden" anzeigen und bestaetigen */
+     /* nur wenn alle felder ok sind: an das PHP-skript schicken und speichern */
     if (isValid) {
 
       spinner.hidden = false;     // spinner anzeigen
       submitBtn.disabled = true;  // doppel-absenden verhindern
 
-      /* HINWEIS: das echte speichern in die datenbank (per fetch an ein backend) */
-      /* wird separat ergaenzt. hier simulieren wir kurz das senden, damit man    */
-      /* den spinner sieht, und zeigen danach die erfolgsmeldung an.              */
-      setTimeout(function () {
-        spinner.hidden = true;      // spinner wieder ausblenden
-        submitBtn.disabled = false; // button wieder aktiv
-        successMsg.textContent = "Deine Nachricht wurde erfolgreich gesendet! Wir melden uns bald bei dir.";
-        kontaktForm.reset();
-      }, 800);
+      /* alle formulardaten einsammeln */
+      const formData = new FormData(kontaktForm);
+
+      /* daten per fetch an das backend (PHP) senden */
+      fetch("kontakt_speichern.php", {
+        method: "POST",
+        body: formData
+      })
+        .then(function (response) {
+          return response.json();   // antwort als JSON lesen
+        })
+        .then(function (data) {
+          spinner.hidden = true;       // spinner ausblenden
+          submitBtn.disabled = false;  // button wieder aktiv
+
+          if (data.ok) {
+            // erfolg: gruene meldung + formular leeren
+            successMsg.style.color = "green";
+            successMsg.textContent = "Deine Nachricht wurde erfolgreich gesendet! Wir melden uns bald bei dir.";
+            kontaktForm.reset();
+          } else {
+            // server hat einen fehler gemeldet
+            successMsg.style.color = "red";
+            successMsg.textContent = "Fehler: " + data.msg;
+          }
+        })
+        .catch(function () {
+          // netzwerk-/verbindungsfehler
+          spinner.hidden = true;
+          submitBtn.disabled = false;
+          successMsg.style.color = "red";
+          successMsg.textContent = "Verbindung zum Server fehlgeschlagen. Bitte später erneut versuchen.";
+        });
     }
-  });
-}
+
 
 
 /* ============================================================ */
