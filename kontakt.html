@@ -85,33 +85,39 @@
         Schreibe uns eine Nachricht – wir melden uns so schnell wie möglich bei dir.
       </p>
 
-      <!--
-        validierung vom kontaktformular:
-        name: mindestens 2 zeichen und pflichtfeld
-        e-mail: muss wie eine richtige e-mail aussehen und ist pflicht
-        betreff: darf nicht leer sein
-        nachricht: mindestens 10 zeichen (damit keine fake-nachrichtren kommen wie nur "hallo" oder aehnlicher gugus)
-        datenschutz: muss angehakt werden
-
-        novalidate bedeutet, dass nicht der browser selber prueft,
-        sondern unser javascript in script.js.
-      -->
       <form id="kontakt-form" novalidate>
 
-        <!-- feld fuer name -->
+        <!-- feld fuer vorname -->
         <div class="form-group">
 
-          <label for="name">Name *</label>
+          <label for="vorname">Vorname *</label>
 
           <input
             type="text"
-            id="name"
-            name="name"
-            placeholder="Dein Vor- und Nachname"
+            id="vorname"
+            name="vorname"
+            placeholder="Dein Vorname"
           >
 
           <!-- fehlermeldung wird mit javascript eingefuegt -->
-          <span class="error-msg" id="name-error"></span>
+          <span class="error-msg" id="vorname-error"></span>
+
+        </div>
+
+        <!-- feld fuer nachname -->
+        <div class="form-group">
+
+          <label for="nachname">Nachname *</label>
+
+          <input
+            type="text"
+            id="nachname"
+            name="nachname"
+            placeholder="Dein Nachname"
+          >
+
+          <!-- fehlermeldung fuer nachname -->
+          <span class="error-msg" id="nachname-error"></span>
 
         </div>
 
@@ -148,6 +154,23 @@
 
           <!-- fehlermeldung fuer plz -->
           <span class="error-msg" id="plz-error"></span>
+
+        </div>
+
+        <!-- feld fuer ort -->
+        <div class="form-group">
+
+          <label for="ort">Ort *</label>
+
+          <input
+            type="text"
+            id="ort"
+            name="ort"
+            placeholder="z. B. Luzern"
+          >
+
+          <!-- fehlermeldung fuer ort -->
+          <span class="error-msg" id="ort-error"></span>
 
         </div>
 
@@ -265,7 +288,6 @@
       <p>Online: An 365 Tagen im Jahr geöffnet!</p>
     </div>
 
-    <!-- social media und rechtliche links -->
     <!-- social media und rechtliche links -->
     <div class="footer-col">
   <h4>FOLGE UNS</h4>

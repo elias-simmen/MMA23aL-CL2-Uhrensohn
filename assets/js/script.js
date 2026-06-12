@@ -145,18 +145,22 @@ if (kontaktForm) {
     let isValid = true;
 
     /* alle eingabefelder holen */
-    const name = document.getElementById("name");
+    const vorname = document.getElementById("vorname");
+    const nachname = document.getElementById("nachname");
     const email = document.getElementById("email");
     const plz = document.getElementById("plz");
+    const ort = document.getElementById("ort");
     const anliegen = document.getElementById("anliegen");
     const betreff = document.getElementById("betreff");
     const nachricht = document.getElementById("nachricht");
     const datenschutz = document.getElementById("datenschutz");
 
     /* die passenden fehlermeldungs-felder dazu */
-    const nameError = document.getElementById("name-error");
+    const vornameError = document.getElementById("vorname-error");
+    const nachnameError = document.getElementById("nachname-error");
     const emailError = document.getElementById("email-error");
     const plzError = document.getElementById("plz-error");
+    const ortError = document.getElementById("ort-error");
     const anliegenError = document.getElementById("anliegen-error");
     const betreffError = document.getElementById("betreff-error");
     const nachrichtError = document.getElementById("nachricht-error");
@@ -166,11 +170,18 @@ if (kontaktForm) {
     /* alte erfolgsmeldung entfernen */
     successMsg.textContent = "";
 
-    if (name.value.trim().length < 2) {
-      nameError.textContent = "Bitte gib deinen Namen ein (mindestens 2 Zeichen).";
+    if (vorname.value.trim().length < 2) {
+      vornameError.textContent = "Bitte gib deinen Vornamen ein (mindestens 2 Zeichen).";
       isValid = false;
     } else {
-      nameError.textContent = "";
+      vornameError.textContent = "";
+    }
+
+    if (nachname.value.trim().length < 2) {
+      nachnameError.textContent = "Bitte gib deinen Nachnamen ein (mindestens 2 Zeichen).";
+      isValid = false;
+    } else {
+      nachnameError.textContent = "";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -190,6 +201,14 @@ if (kontaktForm) {
       isValid = false;
     } else {
       plzError.textContent = "";
+    }
+
+    /* ort: darf nicht leer sein */
+    if (ort.value.trim() === "") {
+      ortError.textContent = "Bitte gib deinen Ort ein.";
+      isValid = false;
+    } else {
+      ortError.textContent = "";
     }
 
     /* anliegen: es muss ein eintrag gewaehlt sein (nicht der leere) */
